@@ -1,0 +1,32 @@
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven
+target/
+
+# Logs
+*.log
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+
+# IDE - Eclipse
+.settings/
+.project
+.classpath
+
+# IDE - VS Code
+.vscode/
+
+# Environment
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
