@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributed Task Queue Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="glass-header">
+            <div class="header-content">
+                <h1>DTQ <span>Dashboard</span></h1>
+                <div class="status-indicator">
+                    <span class="dot active"></span>
+                    <span>System Online</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="grid-layout">
+            <!-- Stats Overview -->
+            <section class="card glass-card overview-stats">
+                <h2>Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <span class="label">Total Tasks</span>
+                        <span class="value" id="totalTasks">0</span>
+                    </div>
+                    <div class="stat-box warning">
+                        <span class="label">Pending/Queued</span>
+                        <span class="value" id="pendingTasks">0</span>
+                    </div>
+                    <div class="stat-box primary">
+                        <span class="label">Running</span>
+                        <span class="value" id="runningTasks">0</span>
+                    </div>
+                    <div class="stat-box success">
+                        <span class="label">Completed</span>
+                        <span class="value" id="completedTasks">0</span>
+                    </div>
+                    <div class="stat-box danger">
+                        <span class="label">Failed / DLQ</span>
+                        <span class="value" id="failedTasks">0</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Workers Status -->
+            <section class="card glass-card workers-section">
+                <h2>Active Workers (<span id="activeWorkersCount">0</span>)</h2>
+                <div class="workers-grid" id="workersGrid">
+                    <!-- Worker cards injected via JS -->
+                </div>
+            </section>
+
+            <!-- Charts -->
+            <section class="card glass-card charts-section">
+                <div class="chart-container">
+                    <h3>Task Status Distribution</h3>
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3>Queue Sizes by Priority</h3>
+                    <canvas id="queueChart"></canvas>
+                </div>
+            </section>
+
+            <!-- Recent Tasks Table -->
+            <section class="card glass-card recent-tasks">
+                <h2>Recent Tasks</h2>
+                <div class="table-responsive">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>Task ID</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Created</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentTasksBody">
+                            <!-- Tasks injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script th:src="@{/js/dashboard.js}"></script>
+</body>
+</html>

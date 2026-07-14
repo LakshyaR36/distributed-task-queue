@@ -1,0 +1,65 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: distributed-task-queue
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/taskqueue
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  sql:
+    init:
+      mode: always
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      timeout: 5000
+
+  security:
+    user:
+      name: admin
+      password: admin
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  worker:
+    count: 4
+    heartbeat-interval: 5000
+    offline-threshold: 30000
+  retry:
+    max-retries: 3
+    base-delay: 1000
+    max-delay: 60000
+  queue:
+    prefix: "dtq:queue"
+    lock-prefix: "dtq:lock"
+    dlq-key: "dtq:dlq"
+    cancel-prefix: "dtq:cancel"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
